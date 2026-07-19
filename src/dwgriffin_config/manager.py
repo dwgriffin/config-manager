@@ -227,6 +227,33 @@ class ConfigManager:
         merged.update(self._cli)
         return merged
 
+    def __getattr__(self, name: str) -> Any:
+        """Get a resolved setting via dot-access.
+
+        Args:
+            name (str): the setting name.
+
+        Returns:
+            Any: the resolved value.
+
+        Raises:
+            AttributeError: if name isn't a known setting.
+        """
+        settings = self.__dict__.get("_merged")
+        if settings is not None and name in settings:
+            return settings[name]
+        raise AttributeError(
+            f"{type(self).__name__!r} object has no attribute {name!r}"
+        )
+
+    def all(self) -> Dict[str, Any]:
+        """Return a dictionary of all configuration settings.
+
+        Returns:
+            dict[str, Any]: The configuration settings.
+        """
+        return dict(self._merged)
+
     def get(self, key: str) -> Any:
         """Get a setting's value
 
