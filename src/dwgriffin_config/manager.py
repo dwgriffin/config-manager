@@ -71,18 +71,22 @@ class ConfigManager:
                 e.g. "FOO_" causes the "id" attribute to read from "FOO_ID".
             cli_args: (argparse.Namespace | dict[str, Any] | None): Optional parsed CLI
                 args to overwrite other values.
+            required: (list[str] | None): Keys that are required to resolve from one of
+                the config sources (env, config file).
         """
         self.defaults = self._load_defaults(defaults)
         self.config_file = config_file
         self.ini_section = ini_section
         self.env_prefix = env_prefix
         self.cli_args = cli_args
+        self.required = list(required) if required else []
 
         self._env = self._load_env()
         self._config = self._load_config(self.config_file)
         self._cli = self._load_cli(cli_args)
 
         self._merged = self._merge()
+        self._validate_required()
 
     def _load_defaults(self, defaults: Union[Dict[str, Any], Any]) -> Dict[str, Any]:
         """Convert an object with attributes to a dictionary.
@@ -231,6 +235,21 @@ class ConfigManager:
         merged.update(self._env)
         merged.update(self._cli)
         return merged
+
+    def _validate_required(self) -> None:
+        """Validate that all required keys resolve to a non "None" value.
+
+        Raises:
+            MissingSettingError: if any setting is missing from required list,
+                raise an error.
+        """
+        missing = [
+            key for key in self.required
+            if self._merged.get(key) is None
+        ]
+        if missing:
+            keys = ", ".join(missing)
+            raise MissingSettingError(f"Missing required setting(s): {keys}")
 
     def __getattr__(self, name: str) -> Any:
         """Get a resolved setting via dot-access.
