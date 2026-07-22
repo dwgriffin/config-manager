@@ -39,6 +39,11 @@ from pathlib import Path
 from typing import Any, Dict, Optional, Union
 
 
+class MissingSettingError(ValueError):
+    """Raised when required setting is passed with no value in any config source."""
+    pass
+
+
 class ConfigManager:
     """The Configuration Manager to merge settings from multiple sources.
 
