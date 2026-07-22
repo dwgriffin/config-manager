@@ -58,6 +58,7 @@ class ConfigManager:
         ini_section: Optional[str] = None,
         env_prefix: Optional[str] = None,
         cli_args: Optional[Union[argparse.Namespace, Dict[str, Any]]] = None,
+        required: Optional[List[str]] = None,
     ):
         """Initialize the configuration manager.
 
