@@ -8,5 +8,4 @@ Licensed under the GNU General Public License v3.0+
 
 from .manager import ConfigManager, MissingSettingError
 
-__all__ = ["ConfigManager"]
-__all__ = ["MissingSettingError"]
+__all__ = ["ConfigManager", "MissingSettingError"]
