@@ -36,12 +36,11 @@ import argparse
 import configparser
 import os
 from pathlib import Path
-from typing import Any, Dict, Optional, Union
+from typing import Any, Dict, List, Optional, Union
 
 
 class MissingSettingError(ValueError):
     """Raised when required setting is passed with no value in any config source."""
-    pass
 
 
 class ConfigManager:
