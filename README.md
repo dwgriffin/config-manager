@@ -87,11 +87,11 @@ ConfigManager(
 | Argument | Type | Description |
 | ---------|------|-------------|
 | `defaults` | `dict[str, Any]` | Defines known settings and their default values and types.
-| `config_file` | `str | Path | None` | Path to optional INI configuration file.
-| `ini_section` | `str | None` | Optional INI section to read from. If `None`, include all sections
-| `env_prefix` | `str | None` | Prefix for Environment variables. e.g. `APP_` maps `timeout` to `APP_TIMEOUT`.
-| `cli_args` | `argparse.Namespace | dict[str, Any] | None` | Parsed CLI arguments. 
-| `required` | `list[str] | None` | Optional list of required keys. 
+| `config_file` | `str \| Path \| None` | Path to optional INI configuration file.
+| `ini_section` | `str \| None` | Optional INI section to read from. If `None`, include all sections
+| `env_prefix` | `str \| None` | Prefix for Environment variables. e.g. `APP_` maps `timeout` to `APP_TIMEOUT`.
+| `cli_args` | `argparse.Namespace \| dict[str, Any] \| None` | Parsed CLI arguments. 
+| `required` | `list[str] \| None` | Optional list of required keys. 
 
 ### Methods and access patterns
 - Dot access — `config.key` returns the resolved value, or raises `AttributeError` if the key isn't known.
