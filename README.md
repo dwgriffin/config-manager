@@ -73,7 +73,7 @@ retries    = 2                              (from config)
 
 ## API
 
-````
+```
 ConfigManager(
     defaults,
     config_file=None,
