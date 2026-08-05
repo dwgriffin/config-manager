@@ -82,7 +82,7 @@ class ConfigManager:
         self.required = list(required) if required else []
 
         self._env = self._load_env()
-        self._config = self._load_config(self.config_file)
+        self._config = self._load_config(self.config_file, self.ini_section)
         self._cli = self._load_cli(cli_args)
 
         self._merged = self._merge()
