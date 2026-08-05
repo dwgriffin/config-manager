@@ -17,7 +17,7 @@ Example usage:
       hostname: "example.com"
 
   config = ConfigManager(
-    defaults = ClassDefaults,
+    defaults = ClassDefaults(),
     config_file = "/home/User/.app.ini",
     env_prefix = "APP_",
     cli_args = parsed_args,
